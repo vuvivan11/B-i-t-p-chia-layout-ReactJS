@@ -7,13 +7,20 @@
 // import ListsKeys from "./ListsKeys/ListsKeys";
 // import Example from "./ListsKeys/Example";
 // import Communication from "./communication";
-// import LiftingStateUpCart from "./shoppping-cart/index"
-import Home from "./user-management"
+// import LiftingStateUpCart from "./shopping-cart-html"
+// import Home from "./user-management-html"
+// import Game from "./tic-tac-toe/Game";
+// import ShoppingCart from "./ShoppingCart";
+// import Usermanagement from "./User"
+// import Redux from "./user-management-redux";
+import BaiTapOanTuXi from "./BaiTapRedux/BaiTapOanTuXi/BaiTapOanTuXi";
+// import FormValidation from "./form-validation";
+
 
 function App() {
-  return (
+  return (  
     <div>
-      <Home />
+      <BaiTapOanTuXi  />
     </div>
   );
 }

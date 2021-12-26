@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import UserItem from "./UserItem";
 
 class Users extends Component {
-  renderTableUser = () => {
-    return this.props.listUser.map((user) => {
-      return <UserItem key={user.id} listUser={user} deleteUser={this.props.deleteUser}/>
+
+  renderTable = () => {
+    const { listUser } = this.props;
+    return listUser.map((user) => {
+      return <UserItem key={user.id} user={user} deleteUser = {this.props.deleteUser} editUser={this.props.editUser}/>
     })
   }
-
   render() {
     return (
       <div>
@@ -22,7 +23,7 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.renderTableUser()}
+            {this.renderTable()}
           </tbody>
         </table>
       </div>

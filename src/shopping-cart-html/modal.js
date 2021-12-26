@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 
 export default class Modal extends Component {
-
-  renderModal = () => {
-    return this.props.listCard.map((product) => {
+  handleModal = () => {
+    return this.props.listCart.map((product) => {
       return (
         <tr key={product.maSP}>
           <td>{product.maSP}</td>
@@ -12,19 +11,19 @@ export default class Modal extends Component {
             <img src={product.hinhAnh} width={50} alt="" />
           </td>
           <td>
-            <button onClick={() => {this.props.updateQuantity(product, false)}}>-</button>{product.soLuong}<button onClick={() => {this.props.updateQuantity(product, true)}}>+</button>
+            <button disabled={product.soLuong === 1} onClick={() => { this.props.updateQuantity(product, false) }}>-</button>
+            {product.soLuong}
+            <button onClick={() => { this.props.updateQuantity(product, true) }}>+</button>
           </td>
           <td>{product.giaBan}</td>
           <td>{product.giaBan * product.soLuong}</td>
           <td>
-            <button className="btn btn-danger" onClick={() => {this.props.deleteCart(product)}}>Delete</button>
+            <button className="btn btn-danger" onClick={() => { this.props.deleteCart(product) }}>Delete</button>
           </td>
         </tr>
       )
     })
   }
-
-
   render() {
     return (
       <div
@@ -65,7 +64,7 @@ export default class Modal extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.renderModal()}
+                  {this.handleModal()}
                 </tbody>
               </table>
             </div>

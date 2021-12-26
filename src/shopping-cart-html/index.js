@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DanhSachSanPham from "./danh-sach-san-pham";
 import Modal from "./modal";
-import data from "./data.json";
+import data from "./data.json"
 
 export default class LiftingStateUpCart extends Component {
   constructor(props) {
@@ -9,74 +9,83 @@ export default class LiftingStateUpCart extends Component {
     this.state = {
       listProduct: data,
       detailProduct: data[0],
-      listCard: [],
+      listCart: [],
     }
   }
 
-  detail = (detailProduct) => {
+  handleDetailProduct = (product) => {
     this.setState({
-      detailProduct
+      detailProduct: product
     })
   }
 
   _findIndex = (maSP) => {
-    return this.state.listCard.findIndex((item) => {
+    return this.state.listCart.findIndex((item) => {
       return item.maSP === maSP
-    });
+    })
   }
 
-  addCart = (product) => {
-    // tạo mảng mới từ state
-    let listCard = [...this.state.listCard];
+  handleAddCart = (product) => {
+    let listCart = [...this.state.listCart]
 
-    // tìm kiếm product đã tồn tại trong this.state.listCard hay chưa
     const index = this._findIndex(product.maSP)
-
     if (index !== -1) {
-      // tìm thấy => tăng số lượng
-      listCard[index].soLuong += 1;
+      // tìm thấy
+      listCart[index].soLuong += 1;
     } else {
-      // không tìm thấy thì thêm product vào listCard
-      const productCard = {
+      // không tìm thấy
+      const productCart = {
         maSP: product.maSP,
         tenSP: product.tenSP,
         hinhAnh: product.hinhAnh,
         soLuong: 1,
         giaBan: product.giaBan,
       }
-      listCard.push(productCard);
+      listCart.push(productCart);
     }
+    alert("add product success")
     this.setState({
-      listCard
+      listCart
     })
   }
 
-  handleDelete = (product) => {
-    const index = this._findIndex(product.maSP);  
-    console.log(index);
-    if(index !== -1){
-      let listCart = [...this.state.listCard];
-      listCart.splice(index, 1);
-
+  handleDeleteCart = (product) => {
+    let listCart = [...this.state.listCart]
+    const index = this._findIndex(product.maSP)
+    if (index !== -1) {
+      // tìm thấy
+      listCart.splice(index, 1)
       this.setState({
-        listCard: listCart,
+        listCart
       })
     }
   }
 
   handleUpdateQuantity = (product, status) => {
-    if(status === true){
-      product.soLuong += 1;
-    }else{
-      product.soLuong -= 1;
+    let listCart = [...this.state.listCart]
+    const index = this._findIndex(product.maSP)
+    if (status) {
+      listCart[index].soLuong += 1
+    } else {
+      if (listCart[index].soLuong > 1) {
+        listCart[index].soLuong -= 1
+      }
     }
+    this.setState({
+      listCart
+    })
+  }
+
+  totalQuantity = () => {
+    return this.state.listCart.reduce((total, product) => {
+      return total += product.soLuong
+    }, 0)
   }
 
   render() {
-    const { listProduct, detailProduct, listCard } = this.state;
-
+    const { listProduct, detailProduct, listCart } = this.state;
     return (
-      <div className="m-auto">
+      <div>
         <h3 className="title">Bài tập giỏ hàng</h3>
         <div className="container">
           <button
@@ -84,11 +93,11 @@ export default class LiftingStateUpCart extends Component {
             data-toggle="modal"
             data-target="#modelId"
           >
-            Giỏ hàng (0)
+            Giỏ hàng ({this.totalQuantity()})
           </button>
         </div>
-        <DanhSachSanPham listProduct={listProduct} detail={this.detail} addCart={this.addCart} />
-        <Modal listCard={listCard} deleteCart={this.handleDelete} updateQuantity={this.handleUpdateQuantity}/>
+        <DanhSachSanPham listProduct={listProduct} detailProduct={this.handleDetailProduct} addCart={this.handleAddCart} />
+        <Modal listCart={listCart} deleteCart={this.handleDeleteCart} updateQuantity={this.handleUpdateQuantity} />
         <div className="row">
           <div className="col-sm-5">
             <img className="img-fluid" src={detailProduct.hinhAnh} alt="" />
