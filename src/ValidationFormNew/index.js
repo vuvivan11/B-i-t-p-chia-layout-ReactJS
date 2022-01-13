@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-export default class FormValidation extends Component {
+export default class ValidationForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,22 +20,19 @@ export default class FormValidation extends Component {
             emailValid: false,
         }
     }
+
     handleChange = (event) => {
-        const { value, name } = event.target;
+        const { name, value } = event.target;
         this.setState({
             values: { ...this.state.values, [name]: value }
         })
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(this.state.values);
-    }
 
     handleErrors = (event) => {
-        const { name, value } = event.target
+        const { name, value } = event.target;
         let mess = value.trim() === "" ? "Vui long nhap " + name : "";
-        let { manvValid, tennvValid, emailValid } = this.state;
+        let { manvValid, tennvValid, emailValid } = this.state
         switch (name) {
             case "manv":
                 manvValid = mess === "" ? true : false;
@@ -44,21 +41,14 @@ export default class FormValidation extends Component {
                     mess = "Do dai ky tu lon hon 4"
                 }
                 break;
-
             case "tennv":
-                tennvValid = mess === "" ? true : false;
+                tennvValid = mess === "" ? true : false
                 break;
-
             case "email":
-                emailValid = mess === "" ? true : false;
-                if (value && !value.match("[a-z0-9._%+-]+@[a-z0-9.-]+[a-z]{2,}$")) {
-                    emailValid= false;
-                    mess = "email phai dung dinh dang"
-                }
+                emailValid = mess === "" ? true : false
                 break;
-
             default:
-                break
+                break;
         }
         this.setState({
             errors: { ...this.state.errors, [name]: mess },
@@ -69,19 +59,13 @@ export default class FormValidation extends Component {
         })
     }
 
-    // handleFormValid = () => {
-    //     let { manvValid, tennvValid, emailValid } = this.state
-    //     this.setState({
-    //         formValid: manvValid && tennvValid && emailValid
-    //     })
-    // }
     render() {
         return (
             <div className="container">
                 <h3 className="title">*FormValidation</h3>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <div className="form-group">
-                        <label>Mã Nhân Viên</label>
+                        <label>Mã Nhân viên</label>
                         <input type="text" className="form-control" name="manv" onChange={this.handleChange} onBlur={this.handleErrors} />
                         {this.state.errors.manv && <div className="alert alert-danger">{this.state.errors.manv}</div>}
                     </div>

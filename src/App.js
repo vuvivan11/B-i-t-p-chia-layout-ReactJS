@@ -13,14 +13,19 @@
 // import ShoppingCart from "./ShoppingCart";
 // import Usermanagement from "./User"
 // import Redux from "./user-management-redux";
-import BaiTapOanTuXi from "./BaiTapRedux/BaiTapOanTuXi/BaiTapOanTuXi";
+// import BaiTapOanTuXi from "./BaiTapRedux/BaiTapOanTuXi/BaiTapOanTuXi";
 // import FormValidation from "./form-validation";
-
+// import BookingTicket from "./BaiTapRedux/BaiTapDatVeXemPhim/BookingTicket";
+// import ValidationForm from "./ValidationFormNew";
+// import LifeCycle from "./lifecycle";
+// import UseSpringAnimation from "./useSpringAmination";
+// import Ex2UseSpring from "./useSpringAmination/Ex2UseSpring";
+import GameBauCua from "./BaiTapRedux/BaiTapGameBauCua";
 
 function App() {
   return (  
     <div>
-      <BaiTapOanTuXi  />
+      <GameBauCua />
     </div>
   );
 }
